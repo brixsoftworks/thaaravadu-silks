@@ -1351,7 +1351,8 @@ button {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 100vw;
+    width: 80vw;
+    max-width: 400px;
     height: 100vh;
     background-color: var(--teak-darkest);
     z-index: 1000;
@@ -1724,28 +1725,4 @@ button {
 
 body.loading {
   overflow: hidden;
-}
-
-@media (max-width: 992px) {
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80vw;
-    max-width: 400px;
-    height: 100vh;
-    background-color: var(--teak-darkest);
-    z-index: 1000;
-    padding-top: var(--nav-height);
-    transition: right 0.5s var(--ease-drawer);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-  }
-  .nav-links.active { right: 0; } 
-/* 
-    right: 0;
-  }
 }
