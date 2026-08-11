@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thaaravadu Silks — Traditional Kerala Sarees Since 1952</title>
+    <meta name="description" content="Discover handcrafted traditional Kerala Kasavu sarees from the ancestral looms of Balaramapuram. Authentic, premium handloom silk and cotton sarees.">
+    <meta name="theme-color" content="#1A0F08">
+    
+    <!-- Favicon: Inline SVG of a simple lamp -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪔</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="loading">
+    <!-- Loading Screen -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <h1 class="loader-brand">Thaaravadu</h1>
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="main-nav" id="main-nav">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">✦</span> Thaaravadu
+            </a>
+            
+            <div class="nav-links">
+                <a href="#heritage" class="nav-link">Heritage</a>
+                <a href="#collections" class="nav-link">Collections</a>
+                <a href="#artisan" class="nav-link">Artisans</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="cart-btn" aria-label="Shopping Cart">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </button>
+                <button class="mobile-menu-btn" aria-label="Toggle Menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-overlay"></div>
+    </nav>
+
+    <!-- Custom Cursor (Desktop only) -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-trail" id="cursor-trail"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <video class="hero-video" autoplay muted loop playsinline poster="images/hero-saree.jpg">
+                <source src="images/hero-video.mp4" type="video/mp4">
+            </video>
+            <canvas id="hero-canvas"></canvas>
+            <div class="hero-overlay"></div>
+            
+            <div class="hero-content">
+                <p class="hero-top-text reveal-on-scroll">Est. 1952 · Balaramapuram</p>
+                <h1 class="hero-title reveal-on-scroll" data-stagger="1">Woven in Gold,<br>Draped in Heritage</h1>
+                <p class="hero-subtitle reveal-on-scroll" data-stagger="2">Handcrafted Kerala Kasavu sarees from the ancestral looms of Balaramapuram, carrying forward a legacy that spans generations.</p>
+                <div class="hero-ctas reveal-on-scroll" data-stagger="3">
+                    <a href="#collections" class="btn btn-primary">Explore Collection</a>
+                    <a href="#heritage" class="btn btn-text">Our Heritage <span class="arrow">→</span></a>
+                </div>
+            </div>
+            
+            <div class="scroll-indicator">
+                <span class="scroll-text">Scroll to discover</span>
+                <div class="scroll-chevron"></div>
+            </div>
+        </section>
+
+        <!-- Heritage Section -->
+        <section id="heritage" class="heritage section-padding">
+            <div class="container">
+                <div class="heritage-grid">
+                    <div class="heritage-image-wrapper reveal-on-scroll">
+                        <div class="heritage-frame">
+                            <img src="images/heritage-weaving.jpg" alt="Master artisan weaving a traditional Kerala saree on a handloom" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="heritage-content reveal-on-scroll" data-stagger="1">
+                        <h2 class="section-subtitle">Our Heritage</h2>
+                        <h3 class="section-title">Three Generations of Weaving Excellence</h3>
+                        <p>For over seven decades, Thaaravadu Silks has been synonymous with the finest Balaramapuram handloom. Our family tradition is rooted in the meticulous art of weaving, employing natural dyes and authentic golden zari to create masterpieces that stand the test of time.</p>
+                        <p>Each saree is a labor of love, requiring 2 to 3 weeks of dedicated craftsmanship on traditional wooden looms. We preserve the age-old techniques passed down through generations, ensuring every drape tells a story of Kerala's rich cultural tapestry.</p>
+                    </div>
+                </div>
+
+                <div class="statistics-row reveal-on-scroll" id="statistics">
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="72">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Years of Heritage</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="48">0</span>
+                        <span class="stat-label">Master Artisans</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="10000">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Sarees Crafted</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="100">0</span><span class="stat-plus">%</span>
+                        <span class="stat-label">Handwoven</span>
+                    </div>
+                </div>
+                
+                <div class="section-divider reveal-on-scroll">
+                    <!-- Nilavilakku SVG -->
+                    <svg class="lamp-icon" viewBox="0 0 100 100" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10 C45 20, 48 30, 50 35 C52 30, 55 20, 50 10 Z" fill="#C5952B" />
+                        <rect x="48" y="35" width="4" height="40" fill="#C5952B" />
+                        <path d="M30 40 Q50 50 70 40 L70 45 Q50 55 30 45 Z" fill="#C5952B" />
+                        <path d="M40 75 L60 75 L65 85 L35 85 Z" fill="#C5952B" />
+                        <rect x="30" y="85" width="40" height="5" fill="#C5952B" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collections Section -->
+        <section id="collections" class="collections section-padding bg-light">
+            <div class="container">
+                <div class="section-header reveal-on-scroll">
+                    <h2 class="section-title text-center">Curated Collections</h2>
+                    <div class="decorative-lines"></div>
+                </div>
+
+                <div class="filter-tabs reveal-on-scroll">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="kasavu">Kasavu</button>
+                    <button class="filter-btn" data-filter="silk">Silk</button>
+                    <button class="filter-btn" data-filter="wedding">Wedding</button>
+                    <button class="filter-btn" data-filter="festive">Festive</button>
+                </div>
+
+                <div class="product-grid" id="product-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card reveal-on-scroll" data-category="kasavu" data-stagger="1">
+                        <div class="product-image-wrapper">
+                            <span class="product-badge">Bestseller</span>
+                            <img src="images/product-1.jpg" alt="Balaramapuram Kasavu" loading="lazy">
+                            <div class="product-overlay">
+                                <button class="btn-quick-view">Quick View</button>
+                            </div>
+                            <button class="btn-wishlist" aria-label="Add to wishlist">♥</button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Balaramapuram Kasavu</h3>
+                            <div class="product-price">₹4,500</div>
+                            <div class="product-rating">★★★★★</div>
+                            <button class="btn btn-add-cart">Add to Bag</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card reveal-on-scroll" data-category="silk wedding" data-stagger="2">
+                        <div class="product-image-wrapper">
+                            <span class="product-badge premium">Premium</span>
+                            <img src="images/product-2.jpg" alt="Kanchipuram Silk" loading="lazy">
+                            <div class="product-overlay">
+                                <button class="btn-quick-view">Quick View</button>
+                            </div>
+                            <button class="btn-wishlist" aria-label="Add to wishlist">♥</button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Kanchipuram Silk</h3>
+                            <div class="product-price">₹12,800</div>
+                            <div class="product-rating">★★★★★</div>
+                            <button class="btn btn-add-cart">Add to Bag</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card reveal-on-scroll" data-category="kasavu festive" data-stagger="3">
+                        <div class="product-image-wrapper">
+                            <span class="product-badge new">New Arrival</span>
+                            <img src="images/product-3.jpg" alt="Temple Green Kasavu" loading="lazy">
+                            <div class="product-overlay">
+                                <button class="btn-quick-view">Quick View</button>
+                            </div>
+                            <button class="btn-wishlist" aria-label="Add to wishlist">♥</button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Temple Green Kasavu</h3>
+                            <div class="product-price">₹6,200</div>
+                            <div class="product-rating">★★★★★</div>
+                            <button class="btn btn-add-cart">Add to Bag</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="product-card reveal-on-scroll" data-category="silk wedding" data-stagger="1">
+                        <div class="product-image-wrapper">
+                            <span class="product-badge exclusive">Exclusive</span>
+                            <img src="images/product-4.jpg" alt="Royal Peacock Silk" loading="lazy">
+                            <div class="product-overlay">
+                                <button class="btn-quick-view">Quick View</button>
+                            </div>
+                            <button class="btn-wishlist" aria-label="Add to wishlist">♥</button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Royal Peacock Silk</h3>
+                            <div class="product-price">₹15,500</div>
+                            <div class="product-rating">★★★★★</div>
+                            <button class="btn btn-add-cart">Add to Bag</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="product-card reveal-on-scroll" data-category="kasavu festive" data-stagger="2">
+                        <div class="product-image-wrapper">
+                            <img src="images/product-1.jpg" alt="Settu Mundu Set" loading="lazy">
+                            <div class="product-overlay">
+                                <button class="btn-quick-view">Quick View</button>
+                            </div>
+                            <button class="btn-wishlist" aria-label="Add to wishlist">♥</button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Settu Mundu Set</h3>
+                            <div class="product-price">₹3,800</div>
+                            <div class="product-rating">★★★★☆</div>
+                            <button class="btn btn-add-cart">Add to Bag</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div class="product-card reveal-on-scroll" data-category="kasavu festive" data-stagger="3">
+                        <div class="product-image-wrapper">
+                            <span class="product-badge limited">Limited Edition</span>
+                            <img src="images/product-3.jpg" alt="Onam Special Gold" loading="lazy">
+                            <div class="product-overlay">
+                                <button class="btn-quick-view">Quick View</button>
+                            </div>
+                            <button class="btn-wishlist" aria-label="Add to wishlist">♥</button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Onam Special Gold</h3>
+                            <div class="product-price">₹7,900</div>
+                            <div class="product-rating">★★★★★</div>
+                            <button class="btn btn-add-cart">Add to Bag</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Artisan Section -->
+        <section id="artisan" class="artisan parallax-section">
+            <div class="parallax-bg" style="background-image: url('images/heritage-weaving.jpg')"></div>
+            <div class="artisan-overlay"></div>
+            <div class="container">
+                <div class="glass-card reveal-on-scroll">
+                    <span class="quote-mark">&ldquo;</span>
+                    <blockquote class="artisan-quote">
+                        Every thread we weave carries the whisper of our ancestors. The loom is not just a tool — it is a temple where tradition meets the touch of our hands.
+                    </blockquote>
+                    <p class="quote-attribution">— Rajan Pillai, Master Weaver, Third Generation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials section-padding">
+            <div class="container">
+                <div class="section-header reveal-on-scroll">
+                    <h2 class="section-title text-center">Voices of Our Patrons</h2>
+                </div>
+                
+                <div class="testimonial-carousel-wrapper reveal-on-scroll">
+                    <div class="testimonial-carousel" id="testimonial-carousel">
+                        <div class="testimonial-card">
+                            <div class="rating">★★★★★</div>
+                            <p class="testimonial-text">"The Kasavu saree I bought for my daughter's wedding was absolutely breathtaking. The gold zari work was exquisite."</p>
+                            <p class="testimonial-author">Lakshmi Nair, Kochi</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="rating">★★★★★</div>
+                            <p class="testimonial-text">"Authentic Balaramapuram quality that you simply cannot find elsewhere. A treasure for my collection."</p>
+                            <p class="testimonial-author">Priya Menon, Trivandrum</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="rating">★★★★★</div>
+                            <p class="testimonial-text">"The craftsmanship is unparalleled. Each saree tells a story of dedication and heritage."</p>
+                            <p class="testimonial-author">Anitha Krishnan, Chennai</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="rating">★★★★★</div>
+                            <p class="testimonial-text">"From ordering to delivery, the experience was as premium as the sarees themselves."</p>
+                            <p class="testimonial-author">Deepa Warrier, Bangalore</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section id="newsletter" class="newsletter section-padding">
+            <div class="container">
+                <div class="newsletter-content reveal-on-scroll">
+                    <h2 class="newsletter-title">Join the Heritage</h2>
+                    <p class="newsletter-subtitle">Subscribe to receive exclusive previews of new collections, artisan stories, and festive offers.</p>
+                    
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="input-group">
+                            <input type="email" id="email-input" placeholder="Enter your email address" required aria-label="Email address">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </div>
+                        <p class="privacy-note">We respect your privacy. Unsubscribe anytime.</p>
+                        <div class="form-message" id="form-message"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="footer-border-top"></div>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-col brand-col">
+                    <h3 class="footer-brand"><span class="logo-icon">✦</span> Thaaravadu Silks</h3>
+                    <p class="footer-desc">Preserving the legacy of handwoven Kerala Kasavu sarees since 1952. Masterpieces crafted by Balaramapuram's finest artisans.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="Facebook">FB</a>
+                        <a href="#" aria-label="WhatsApp">WA</a>
+                        <a href="#" aria-label="YouTube">YT</a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#heritage">Heritage</a></li>
+                        <li><a href="#collections">Collections</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Bestsellers</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Care -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">Customer Care</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Care Instructions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Visit Us -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">Visit Us</h4>
+                    <address class="footer-address">
+                        <p>42, Weaver Street,<br>Balaramapuram,<br>Thiruvananthapuram,<br>Kerala 695501</p>
+                        <p class="contact-info">
+                            <a href="tel:+919876543210">+91 98765 43210</a><br>
+                            <a href="mailto:namaskaram@thaaravadusilks.com">namaskaram@thaaravadusilks.com</a>
+                        </p>
+                        <p class="store-hours">Mon - Sat: 9:30 AM - 8:00 PM<br>Sun: 10:00 AM - 6:00 PM</p>
+                    </address>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2024 Thaaravadu Silks. All Rights Reserved.</p>
+                <div class="payment-methods">
+                    <span>Visa</span> • <span>Mastercard</span> • <span>UPI</span>
+                </div>
+                <p class="made-with-love">Made with ♥ in Kerala</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
