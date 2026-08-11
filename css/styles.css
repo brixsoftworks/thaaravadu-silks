@@ -1397,6 +1397,13 @@ button {
   .heritage-grid {
     grid-template-columns: 1fr;
   }
+  .heritage-content {
+    padding-right: 0;
+  }
+  .section-title::before,
+  .section-title::after {
+    display: none;
+  }
   .heritage-image-wrapper {
     order: 2;
     margin-top: 2rem;
@@ -1428,6 +1435,9 @@ button {
 @media (max-width: 576px) {
   :root {
     --spacing-section: 60px;
+  }
+  .logo {
+    font-size: 1.2rem;
   }
   .product-grid {
     grid-template-columns: 1fr;
@@ -1705,6 +1715,8 @@ button {
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
 }
 
 .cursor-trail {
@@ -1716,7 +1728,8 @@ button {
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s;
+  opacity: 0;
+  transition: width 0.2s, height 0.2s, opacity var(--duration-fast) var(--ease-out);
 }
 
 .section-padding {
