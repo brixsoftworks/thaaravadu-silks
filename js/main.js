@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. SUPABASE CLIENT INITIALIZATION
+    const supabaseUrl = 'https://npyezdxheinqekupwvez.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5weWV6ZHhoZWlucWVrdXB3dmV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxNDkzMDEsImV4cCI6MjEwMTcyNTMwMX0.gzy-iNlkPMtmruLtF_I4-HpPhpucR0sIJEeI_4Vqj_k';
+    const supabase = (window.supabase && supabaseUrl && supabaseKey) ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
+
     // 1. LOADING SCREEN
     const loader = document.getElementById('loader');
     
@@ -449,8 +454,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.textContent = 'Subscribing...';
                 btn.disabled = true;
                 
-                // Simulate API call
-                setTimeout(() => {
+                const submitLead = async () => {
+                    if (supabase) {
+                        try {
+                            const { error } = await supabase
+                                .from('saree_leads')
+                                .insert([{ email: email, source: 'newsletter' }]);
+                            if (error) {
+                                console.error('Supabase insert error:', error);
+                            }
+                        } catch (err) {
+                            console.error('Supabase connection error:', err);
+                        }
+                    }
+                    
                     formMessage.textContent = 'Thank you for joining our heritage family!';
                     formMessage.style.color = '#C5952B'; // Gold color
                     formMessage.style.display = 'block';
@@ -463,7 +480,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         formMessage.style.display = 'none';
                     }, 5000);
-                }, 1500);
+                };
+                
+                submitLead();
             }
         });
     }
