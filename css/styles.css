@@ -353,7 +353,7 @@ button {
    ========================================================================== */
 #hero {
   position: relative;
-  height: 100vh;
+  height: 100%; height: 100dvh;
   min-height: 600px;
   width: 100%;
   display: flex;
@@ -993,7 +993,7 @@ button {
    ARTISAN PARALLAX SECTION
    ========================================================================== */
 #artisan {
-  height: 80vh;
+  height: 80%; height: 80dvh;
   min-height: 500px;
   position: relative;
   display: flex;
@@ -1353,7 +1353,7 @@ button {
     right: -100%;
     width: 80vw;
     max-width: 400px;
-    height: 100vh;
+    height: 100%; height: 100dvh;
     background-color: var(--teak-darkest);
     z-index: 1000;
     padding-top: var(--nav-height);
@@ -1764,7 +1764,8 @@ body.loading {
   right: -100%;
   width: 100%;
   max-width: 450px;
-  height: 100vh;
+  height: 100%;
+  height: 100dvh;
   background-color: var(--teak-dark);
   box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
   z-index: 1001;
