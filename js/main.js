@@ -435,55 +435,146 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTrail();
     }
 
-    // 10. NEWSLETTER FORM
-    const form = document.getElementById('newsletter-form');
-    const formMessage = document.getElementById('form-message');
+    // 10. E-COMMERCE CART & WHATSAPP CHECKOUT
+    let cart = JSON.parse(localStorage.getItem('shavili_cart')) || [];
     
-    if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const emailInput = document.getElementById('email-input');
-            const email = emailInput.value;
+    const cartBtn = document.querySelector('.cart-btn');
+    const cartCount = document.querySelector('.cart-count');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const cartDrawer = document.getElementById('cart-drawer');
+    const closeCartBtn = document.getElementById('close-cart');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotalPrice = document.getElementById('cart-total-price');
+    const checkoutBtn = document.getElementById('btn-checkout');
+    
+    // Toggle Cart
+    const toggleCart = () => {
+        cartOverlay.classList.toggle('active');
+        cartDrawer.classList.toggle('active');
+        document.body.style.overflow = cartDrawer.classList.contains('active') ? 'hidden' : '';
+    };
+
+    if (cartBtn && cartOverlay && closeCartBtn) {
+        cartBtn.addEventListener('click', toggleCart);
+        cartOverlay.addEventListener('click', toggleCart);
+        closeCartBtn.addEventListener('click', toggleCart);
+    }
+
+    // Update Cart UI
+    const updateCartUI = () => {
+        // Update Count
+        const totalItems = cart.length;
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+
+        // Render Items
+        if (cartItemsContainer) {
+            cartItemsContainer.innerHTML = '';
             
-            // Basic validation
-            if (email && email.includes('@')) {
-                const btn = form.querySelector('button');
-                const originalText = btn.textContent;
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="empty-cart-message" style="display: block;">Your bag is empty.</div>';
+                if (checkoutBtn) checkoutBtn.disabled = true;
+                if (cartTotalPrice) cartTotalPrice.textContent = '₹0';
+                return;
+            }
+
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.price;
                 
-                // Loading state
-                btn.textContent = 'Subscribing...';
-                btn.disabled = true;
-                
-                const submitLead = async () => {
-                    if (supabase) {
-                        try {
-                            const { error } = await supabase
-                                .from('saree_leads')
-                                .insert([{ email: email, source: 'newsletter' }]);
-                            if (error) {
-                                console.error('Supabase insert error:', error);
-                            }
-                        } catch (err) {
-                            console.error('Supabase connection error:', err);
-                        }
-                    }
-                    
-                    formMessage.textContent = 'Thank you for joining our heritage family!';
-                    formMessage.style.color = '#C5952B'; // Gold color
-                    formMessage.style.display = 'block';
-                    formMessage.classList.add('fade-in');
-                    
-                    emailInput.value = '';
-                    btn.textContent = originalText;
-                    btn.disabled = false;
-                    
-                    setTimeout(() => {
-                        formMessage.style.display = 'none';
-                    }, 5000);
-                };
-                
-                submitLead();
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+                itemEl.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">₹${item.price.toLocaleString('en-IN')}</div>
+                        <button class="cart-item-remove" data-index="${index}">Remove</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemEl);
+            });
+            
+            if (cartTotalPrice) {
+                cartTotalPrice.textContent = '₹' + total.toLocaleString('en-IN');
+            }
+            if (checkoutBtn) {
+                checkoutBtn.disabled = false;
+            }
+            
+            // Add remove listeners
+            document.querySelectorAll('.cart-item-remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = parseInt(e.target.getAttribute('data-index'));
+                    cart.splice(idx, 1);
+                    saveCart();
+                    updateCartUI();
+                });
+            });
+        }
+    };
+
+    // Save Cart
+    const saveCart = () => {
+        localStorage.setItem('shavili_cart', JSON.stringify(cart));
+    };
+
+    // Add to Cart
+    document.querySelectorAll('.btn-add-cart').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const productCard = e.target.closest('.product-card');
+            const name = productCard.querySelector('.product-name').textContent;
+            const priceStr = productCard.querySelector('.product-price').textContent;
+            const price = parseInt(priceStr.replace(/[^0-9]/g, ''));
+            const image = productCard.querySelector('img').src;
+            
+            cart.push({ name, price, image });
+            saveCart();
+            updateCartUI();
+            
+            // Visual feedback
+            const originalText = e.target.textContent;
+            e.target.textContent = 'Added!';
+            e.target.style.backgroundColor = 'var(--kasavu-gold-bright)';
+            e.target.style.color = 'var(--teak-darkest)';
+            
+            setTimeout(() => {
+                e.target.textContent = originalText;
+                e.target.style.backgroundColor = '';
+                e.target.style.color = '';
+            }, 1500);
+            
+            // Auto open cart
+            if (!cartDrawer.classList.contains('active')) {
+                toggleCart();
             }
         });
+    });
+
+    // WhatsApp Checkout
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) return;
+            
+            const phoneNumber = '919876543210'; // Replace with actual business WhatsApp number
+            let message = 'Hello Shavili Vinayak Sarees! I would like to place an order for the following items:%0A%0A';
+            
+            let total = 0;
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} - ₹${item.price.toLocaleString('en-IN')}%0A`;
+                total += item.price;
+            });
+            
+            message += `%0A*Total Amount: ₹${total.toLocaleString('en-IN')}*%0A%0A`;
+            message += 'Please let me know the payment and shipping details.';
+            
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        });
     }
+
+    // Init Cart UI on load
+    updateCartUI();
 });

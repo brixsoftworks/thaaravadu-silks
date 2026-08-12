@@ -264,7 +264,7 @@
                     <blockquote class="artisan-quote">
                         Every design we print carries the spirit of modern elegance. We curate, style, and deliver sarees that blend contemporary fashion with timeless style, creating masterpieces that require no weaving but offer unmatched grace.
                     </blockquote>
-                    <p class="quote-attribution">— Vinayak Sharma, Chief Designer & Founder</p>
+                    <p class="quote-attribution">— [Shavili Vinayak]</p>
                 </div>
             </div>
         </section>
@@ -303,24 +303,6 @@
             </div>
         </section>
 
-        <!-- Newsletter Section -->
-        <section id="newsletter" class="newsletter section-padding">
-            <div class="container">
-                <div class="newsletter-content reveal-on-scroll">
-                    <h2 class="newsletter-title">Join the Heritage</h2>
-                    <p class="newsletter-subtitle">Subscribe to receive exclusive previews of new collections, artisan stories, and festive offers.</p>
-                    
-                    <form id="newsletter-form" class="newsletter-form">
-                        <div class="input-group">
-                            <input type="email" id="email-input" placeholder="Enter your email address" required aria-label="Email address">
-                            <button type="submit" class="btn btn-primary">Subscribe</button>
-                        </div>
-                        <p class="privacy-note">We respect your privacy. Unsubscribe anytime.</p>
-                        <div class="form-message" id="form-message"></div>
-                    </form>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- Footer -->
@@ -332,8 +314,9 @@
                 <div class="footer-col brand-col">
                     <h3 class="footer-brand"><span class="logo-icon">✦</span> Shavili Vinayak Sarees</h3>
                     <p class="footer-desc">Redefining modern elegance with premium printed sarees. We curate exquisite designs crafted from the finest fabrics, offering timeless styles for every occasion.</p>
+                    <p class="footer-desc" style="margin-top: 10px; font-style: italic;">Join our vibrant community on Instagram! Follow <a href="https://www.instagram.com/shavili_vinayak_sarees?igsh=b3IxOGZ2dzZjcHB3" target="_blank" style="color: var(--primary-color);">@shavili_vinayak_sarees</a> for our latest exclusive prints, styling tips, and behind-the-scenes magic. Worldwide shipping available.</p>
                     <div class="social-links">
-                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="https://www.instagram.com/shavili_vinayak_sarees?igsh=b3IxOGZ2dzZjcHB3" target="_blank" aria-label="Instagram">IG</a>
                         <a href="#" aria-label="Facebook">FB</a>
                         <a href="#" aria-label="WhatsApp">WA</a>
                         <a href="#" aria-label="YouTube">YT</a>
@@ -387,6 +370,27 @@
             </div>
         </div>
     </footer>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Bag</h2>
+            <button class="close-cart" id="close-cart" aria-label="Close cart">×</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be injected here by JS -->
+            <div class="empty-cart-message">Your bag is empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total-price">₹0</span>
+            </div>
+            <p class="cart-note">Checkout securely via WhatsApp to complete your order and arrange shipping.</p>
+            <button class="btn btn-primary btn-checkout" id="btn-checkout" disabled>Checkout via WhatsApp</button>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
