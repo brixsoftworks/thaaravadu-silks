@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 0. SUPABASE CLIENT INITIALIZATION
-    const supabaseUrl = 'https://npyezdxheinqekupwvez.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5weWV6ZHhoZWlucWVrdXB3dmV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxNDkzMDEsImV4cCI6MjEwMTcyNTMwMX0.gzy-iNlkPMtmruLtF_I4-HpPhpucR0sIJEeI_4Vqj_k';
-    const supabase = (window.supabase && supabaseUrl && supabaseKey) ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
 
     // 1. LOADING SCREEN
     const loader = document.getElementById('loader');
@@ -449,6 +445,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Toggle Cart
     const toggleCart = () => {
+        if (window.isUserLoggedIn && !window.isUserLoggedIn()) {
+            if (window.goToLogin) window.goToLogin('cart');
+            return;
+        }
         cartOverlay.classList.toggle('active');
         cartDrawer.classList.toggle('active');
         document.body.style.overflow = cartDrawer.classList.contains('active') ? 'hidden' : '';
@@ -519,16 +519,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // Save Cart
     const saveCart = () => {
         localStorage.setItem('shavili_cart', JSON.stringify(cart));
+        if (window.syncCartToCloud) {
+            window.syncCartToCloud(cart);
+        }
     };
 
-    // Add to Cart
-    document.querySelectorAll('.btn-add-cart').forEach(btn => {
+    // Cloud Sync Events
+    window.addEventListener('user-logged-in', async () => {
+        if (window.loadCartFromCloud) {
+            const cloudCart = await window.loadCartFromCloud();
+            if (cloudCart && cloudCart.length > 0) {
+                cart = cloudCart; // Prefer cloud cart
+                localStorage.setItem('shavili_cart', JSON.stringify(cart));
+                updateCartUI();
+            } else if (cart.length > 0 && window.syncCartToCloud) {
+                // If cloud is empty but local is not, sync local to cloud
+                window.syncCartToCloud(cart);
+            }
+        }
+    });
+
+    window.addEventListener('user-logged-out', () => {
+        cart = [];
+        localStorage.removeItem('shavili_cart');
+        updateCartUI();
+    });
+
+    // Add to Cart Logic
+    const addToCartBtns = document.querySelectorAll('.btn-add-cart');
+    addToCartBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const productCard = e.target.closest('.product-card');
-            const name = productCard.querySelector('.product-name').textContent;
-            const priceStr = productCard.querySelector('.product-price').textContent;
-            const price = parseInt(priceStr.replace(/[^0-9]/g, ''));
-            const image = productCard.querySelector('img').src;
+            if (window.isUserLoggedIn && !window.isUserLoggedIn()) {
+                if (window.goToLogin) window.goToLogin('cart');
+                return;
+            }
+            
+            const card = e.target.closest('.product-card');
+            const name = card.querySelector('.product-name').textContent;
+            const priceText = card.querySelector('.product-price').textContent;
+            const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+            const image = card.querySelector('img').src;
             
             cart.push({ name, price, image });
             saveCart();
@@ -553,28 +583,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // WhatsApp Checkout
+    // Checkout Logic (Stripe Redirect)
     if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
+        checkoutBtn.addEventListener('click', async () => {
             if (cart.length === 0) return;
             
-            const phoneNumber = '919876543210'; // Replace with actual business WhatsApp number
-            let message = 'Hello Shavili Vinayak Sarees! I would like to place an order for the following items:%0A%0A';
-            
-            let total = 0;
-            cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.name} - ₹${item.price.toLocaleString('en-IN')}%0A`;
-                total += item.price;
-            });
-            
-            message += `%0A*Total Amount: ₹${total.toLocaleString('en-IN')}*%0A%0A`;
-            message += 'Please let me know the payment and shipping details.';
-            
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-            window.open(whatsappUrl, '_blank');
+            // Require Authentication
+            if (typeof window.isUserLoggedIn === 'function' && !window.isUserLoggedIn()) {
+                if (window.goToLogin) window.goToLogin('cart');
+                return;
+            }
+
+            // Provide visual feedback
+            const originalText = checkoutBtn.textContent;
+            checkoutBtn.textContent = 'Redirecting to Stripe...';
+            checkoutBtn.disabled = true;
+
+            try {
+                let total = cart.reduce((sum, item) => sum + item.price, 0);
+                
+                // 1. Create order record in Firestore as pending
+                const orderId = await window.placeOrder(cart, total);
+                
+                if (!orderId) {
+                    alert("Failed to place the order. Please try again.");
+                    checkoutBtn.textContent = originalText;
+                    checkoutBtn.disabled = false;
+                    return;
+                }
+
+                // 2. Call backend to get Stripe Checkout URL
+                const response = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ cart, orderId })
+                });
+
+                const data = await response.json();
+                if (data.url) {
+                    // 3. Redirect to Stripe
+                    window.location.href = data.url;
+                } else {
+                    throw new Error("No URL returned from Stripe session creation");
+                }
+            } catch (err) {
+                console.error("Checkout Error:", err);
+                alert("Failed to connect to the checkout service. Please try again later.");
+                checkoutBtn.textContent = originalText;
+                checkoutBtn.disabled = false;
+            }
         });
     }
 
     // Init Cart UI on load
     updateCartUI();
+
+    // Handle payment redirect callbacks.
+    // SECURITY: these URL params are client-controlled and never trusted for
+    // order status. The authoritative "paid" status is written ONLY by the
+    // Stripe webhook (api/stripe-webhook.js) after signature verification.
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.get('checkout_success') === 'true') {
+        // Clear the cart optimistically; order status stays "pending" until
+        // Stripe's webhook confirms payment server-side.
+        cart = [];
+        saveCart();
+        updateCartUI();
+        if (typeof window.syncCartToCloud === 'function') {
+            window.syncCartToCloud([]);
+        }
+        alert("Thank you! Your payment is being confirmed — you'll receive an email once your order is verified.");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (urlParams.get('checkout_canceled') === 'true') {
+        alert("Payment cancelled. Your order has not been placed.");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // Open Cart if redirect param is present
+    if (urlParams.get('open') === 'cart') {
+        setTimeout(() => {
+            if (window.isUserLoggedIn && window.isUserLoggedIn()) {
+                if (typeof toggleCart !== 'undefined') toggleCart();
+            }
+        }, 500);
+    }
 });

@@ -1,0 +1,37 @@
+{
+  "name": "saree-site",
+  "version": "1.0.0",
+  "description": "A premium, contemporary Kerala-style saree selling website with a rich, responsive UI/UX design.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --check api/create-checkout-session.js && node --check api/stripe-webhook.js",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brixsoftworks/thaaravadu-silks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/brixsoftworks/thaaravadu-silks/issues"
+  },
+  "homepage": "https://github.com/brixsoftworks/thaaravadu-silks#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "firebase-admin": "^14.3.0",
+    "puppeteer": "^25.8.0",
+    "stripe": "^22.5.0"
+  },
+  "devDependencies": {
+    "husky": "9.1.7",
+    "lint-staged": "17.3.0"
+  },
+  "lint-staged": {
+    "api/*.js": [
+      "node --check"
+    ]
+  }
+}

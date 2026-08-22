@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /orders/{orderId} {
+      // CREATE: only the signed-in owner, and an order always starts unpaid.
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == "pending";
+
+      // READ: owner only.
+      allow read: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+
+      // UPDATE / DELETE: never from the browser. Payment status is written
+      // exclusively by the Stripe webhook via the Admin SDK, which bypasses
+      // these rules. (Previously owners could mark their own orders paid —
+      // that was the spoofable ?checkout_success=true hole.)
+      allow update, delete: if false;
+    }
+  }
+}

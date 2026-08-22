@@ -15,13 +15,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body class="loading">
     <!-- Loading Screen -->
     <div id="loader" class="loader">
         <div class="loader-content">
+            <img src="images/logo.png" alt="Shavili Vinayak Sarees Logo" class="loader-logo">
             <h1 class="loader-brand">Shavili Vinayak Sarees</h1>
             <div class="loader-line"></div>
         </div>
@@ -31,7 +36,8 @@
     <nav class="main-nav" id="main-nav">
         <div class="nav-container">
             <a href="#" class="logo">
-                <span class="logo-icon">✦</span> Shavili Vinayak Sarees
+                <img src="images/logo.png" alt="Shavili Vinayak Sarees Logo" class="logo-image">
+                <span>Shavili Vinayak Sarees</span>
             </a>
             
             <div class="nav-links">
@@ -39,9 +45,14 @@
                 <a href="#collections" class="nav-link">Collections</a>
                 <a href="#artisan" class="nav-link">Artisans</a>
                 <a href="#contact" class="nav-link">Contact</a>
+                <a href="login.html" class="nav-link" id="nav-account-link" style="display: none;">Account Settings</a>
             </div>
             
             <div class="nav-actions">
+                <button class="auth-btn" id="nav-auth-btn" aria-label="Account Login">
+                    <i class="fa-regular fa-user" style="pointer-events: none;"></i>
+                    <span class="auth-text" id="nav-auth-text" style="pointer-events: none;">Login</span>
+                </button>
                 <button class="cart-btn" aria-label="Shopping Cart">
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -306,67 +317,83 @@
     </main>
 
     <!-- Footer -->
+    <!-- Footer (Clean 3-Column Ultra-Pro Layout) -->
     <footer id="contact" class="footer">
         <div class="footer-border-top"></div>
         <div class="container">
             <div class="footer-grid">
                 <!-- Brand Column -->
                 <div class="footer-col brand-col">
-                    <h3 class="footer-brand"><span class="logo-icon">✦</span> Shavili Vinayak Sarees</h3>
+                    <div class="footer-brand-header">
+                        <img src="images/logo.png" alt="Shavili Vinayak Sarees Logo" class="footer-logo-img">
+                        <h3 class="footer-brand-name">Shavili Vinayak Sarees</h3>
+                    </div>
                     <p class="footer-desc">Redefining modern elegance with premium printed sarees. We curate exquisite designs crafted from the finest fabrics, offering timeless styles for every occasion.</p>
-                    <p class="footer-desc" style="margin-top: 10px; font-style: italic;">Join our vibrant community on Instagram! Follow <a href="https://www.instagram.com/shavili_vinayak_sarees?igsh=b3IxOGZ2dzZjcHB3" target="_blank" style="color: var(--primary-color);">@shavili_vinayak_sarees</a> for our latest exclusive prints, styling tips, and behind-the-scenes magic. Worldwide shipping available.</p>
+                    <div class="footer-insta-box">
+                        <i class="fab fa-instagram text-gold"></i>
+                        <span>Follow <a href="https://www.instagram.com/shavili_vinayak_sarees?igsh=b3IxOGZ2dzZjcHB3" target="_blank" class="insta-link">@shavili_vinayak_sarees</a> on Instagram for our latest exclusive prints & styling tips.</span>
+                    </div>
                     <div class="social-links">
-                        <a href="https://www.instagram.com/shavili_vinayak_sarees?igsh=b3IxOGZ2dzZjcHB3" target="_blank" aria-label="Instagram">IG</a>
-                        <a href="#" aria-label="Facebook">FB</a>
-                        <a href="#" aria-label="WhatsApp">WA</a>
-                        <a href="#" aria-label="YouTube">YT</a>
+                        <a href="https://www.instagram.com/shavili_vinayak_sarees?igsh=b3IxOGZ2dzZjcHB3" target="_blank" aria-label="Instagram" class="social-btn"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/919876543210?text=Hi%20Shavili%20Vinayak%20Sarees" target="_blank" aria-label="WhatsApp" class="social-btn"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
 
                 <!-- Quick Links -->
                 <div class="footer-col">
-                    <h4 class="footer-heading">Quick Links</h4>
+                    <h4 class="footer-heading"><i class="fas fa-compass text-gold mr-2"></i>Explore</h4>
                     <ul class="footer-links">
-                        <li><a href="#heritage">Heritage</a></li>
-                        <li><a href="#collections">Collections</a></li>
-                        <li><a href="#">New Arrivals</a></li>
-                        <li><a href="#">Bestsellers</a></li>
-                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="#heritage"><i class="fas fa-chevron-right link-icon"></i>Heritage & Craft</a></li>
+                        <li><a href="#collections"><i class="fas fa-chevron-right link-icon"></i>Curated Collections</a></li>
+                        <li><a href="#collections"><i class="fas fa-chevron-right link-icon"></i>New Arrivals</a></li>
+                        <li><a href="#collections"><i class="fas fa-chevron-right link-icon"></i>Bestsellers</a></li>
                     </ul>
                 </div>
 
-                <!-- Customer Care -->
+                <!-- Connect & Ordering -->
                 <div class="footer-col">
-                    <h4 class="footer-heading">Customer Care</h4>
+                    <h4 class="footer-heading"><i class="fas fa-paper-plane text-gold mr-2"></i>Connect & Order</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Returns</a></li>
-                        <li><a href="#">Size Guide</a></li>
-                        <li><a href="#">Care Instructions</a></li>
+                        <li><a href="https://www.instagram.com/shavili_vinayak_sarees?igsh=b3IxOGZ2dzZjcHB3" target="_blank"><i class="fab fa-instagram link-icon"></i>Instagram Direct Message</a></li>
+                        <li><a href="https://wa.me/919876543210?text=Hi%20Shavili%20Vinayak%20Sarees" target="_blank"><i class="fab fa-whatsapp link-icon"></i>Order via WhatsApp</a></li>
+                        <li><a href="#contact"><i class="fas fa-globe link-icon"></i>Worldwide Shipping Available</a></li>
+                        <li><a href="#contact"><i class="fas fa-truck link-icon"></i>Fast Doorstep Delivery</a></li>
                     </ul>
-                </div>
-
-                <!-- Visit Us -->
-                <div class="footer-col">
-                    <h4 class="footer-heading">Visit Us</h4>
-                    <address class="footer-address">
-                        <p>Shop 24, Vinayak Plaza,<br>MG Road, Ernakulam,<br>Kochi, Kerala 682016</p>
-                        <p class="contact-info">
-                            <a href="tel:+919876543210">+91 98765 43210</a><br>
-                            <a href="mailto:care@shavilivinayaksarees.com">care@shavilivinayaksarees.com</a>
-                        </p>
-                        <p class="store-hours">Mon - Sat: 9:30 AM - 8:00 PM<br>Sun: 10:00 AM - 6:00 PM</p>
-                    </address>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <p class="copyright">&copy; 2024 Shavili Vinayak Sarees. All Rights Reserved.</p>
-                <div class="payment-methods">
-                    <span>Visa</span> • <span>Mastercard</span> • <span>UPI</span>
+            <!-- Brix Softworks Agency Spotlight Card -->
+            <div class="brix-spotlight-card">
+                <div class="brix-card-main">
+                    <div class="brix-logo-tag">
+                        <i class="fas fa-laptop-code text-gold"></i>
+                    </div>
+                    <div class="brix-details">
+                        <h5 class="brix-title">Designed, Developed & Maintained by Brix Softworks</h5>
+                        <p class="brix-description">Brix Softworks is a premier software agency specializing in high-performance e-commerce platforms, modern UI/UX engineering, and custom full-stack web applications.</p>
+                        <div class="brix-tags">
+                            <span class="brix-tag"><i class="fas fa-shopping-bag"></i> Custom E-Commerce</span>
+                            <span class="brix-tag"><i class="fas fa-paint-brush"></i> Premium UI/UX</span>
+                            <span class="brix-tag"><i class="fas fa-rocket"></i> Cloud & Performance</span>
+                        </div>
+                    </div>
                 </div>
-                <p class="made-with-love">Made with ♥ in Kerala</p>
+                <div class="brix-action">
+                    <a href="https://brixsoftworks.com" target="_blank" class="brix-btn">
+                        <span>Contact Brix Softworks</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2026 Shavili Vinayak Sarees. All Rights Reserved.</p>
+                </div>
+                <div class="footer-credit">
+                    Technology Partner <i class="fas fa-bolt text-gold"></i> <a href="https://brixsoftworks.com" target="_blank" class="brix-credit-link">Brix Softworks</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -387,13 +414,16 @@
                 <span>Total</span>
                 <span id="cart-total-price">₹0</span>
             </div>
-            <p class="cart-note">Checkout securely via WhatsApp to complete your order and arrange shipping.</p>
-            <button class="btn btn-primary btn-checkout" id="btn-checkout" disabled>Checkout via WhatsApp</button>
+            <p class="cart-note">Checkout securely via Stripe to complete your order.</p>
+            <button class="btn btn-primary btn-checkout" id="btn-checkout" disabled>Secure Checkout</button>
         </div>
     </div>
 
+
+
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="module" src="js/auth.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
